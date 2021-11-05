@@ -4,6 +4,8 @@ const app = express(); //firing the express server
 
 //use express router
 app.use('/', require('./routes/index'))
+
+
 //listening to the server via our port
 app.listen(port,function(err){
     if(err)
