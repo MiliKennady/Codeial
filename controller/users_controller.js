@@ -1,11 +1,17 @@
 module.exports.user = function(request,response){
-    return response.end('<h1>Rendering the user page</h1>')
+    return response.render('user',{
+        title: "Users"
+    });
 }
 
 module.exports.profile = function(request, response){
-    return response.end('<h1>User Profile</h1>');
+    return response.render('profile',{
+        title: "Profile"
+    });
 }
 
 module.exports.updateProfile = function(request,response){
-    return response.end('<h1>Rendering the update Profile controller</h1>')
+    return response.render('updateProfile',{
+        title: "Update your Profile"
+    });
 }
