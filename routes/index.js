@@ -22,4 +22,6 @@ router.get('/friends',friendsController.friends);
 // for any further routes, access from here
 //router.user('/routerName',require('./routerfile'));
 
+
+
 module.exports = router; //making this available to be exported
