@@ -12,9 +12,28 @@ module.exports.user = function(request,response){
 
 //rendering profile page
 module.exports.profile = function(request, response){
-    return response.render('profile',{
-        title: "Profile"
-    });
+    //check if cookie exists, if cookie exists it means that the user is logged in and we can start the session and show the profile page with user related details
+    //console.log(request.cookies);
+    if(request.cookies.user_id){
+        console.log('entered here');
+        User.findById(request.cookies.user_id, function(err,user){
+            if(err)
+            {
+                console.log('Error in fetching the user entry');
+                return response.redirect('back');
+            }
+            //console.log(user);
+            if(user){
+                return response.render('profile',{
+                    title:"Your Profile",
+                    user:user
+                });
+            }
+            
+        })
+    }
+    else
+        return response.redirect('back');
 }
 
 ////rendering update profile page
@@ -81,5 +100,42 @@ module.exports.createNewUser = function(request, response){
 
 //getting the details entered in login page or when a user signs in successfully
 module.exports.createSession = function(request, response){
-    
+   
+    //find the user in the database
+    // console.log(request.body);
+
+    User.findOne({email:request.body.email}, function(err, user){
+        //if error
+        if(err)
+        {
+            console.log('Error in finding User');return;
+        }
+      
+        if(user){     //if the user found
+            
+           //if password does not matches
+            if(user.password != request.body.password){
+                console.log('Incorrect Password');
+                return response.redirect('back');
+            }
+            else{
+                //handle session creation
+                response.cookie('user_id',user.id);
+                return response.redirect('/users/profile');
+            }
+            
+        }
+        else{   //if user not found
+            console.log('User not found');
+            return response.redirect('back');
+        }
+
+        
+    });  
+}
+
+module.exports.logout = function(request,response)
+{
+    response.clearCookie('user_id');   
+    return response.redirect('/users/logout')
 }
