@@ -28,6 +28,10 @@ module.exports.updateProfile = function(request,response){
 
 //rendering signup page
 module.exports.signup = function(request,response){
+    if(request.isAuthenticated())   //this makes sure that the sign up page is only visible if the user is not signed in
+    {
+        return response.redirect('/users/profile');
+    }
     return response.render('signup',{
         title: "SignUp Page"
     });
@@ -35,6 +39,10 @@ module.exports.signup = function(request,response){
 
 //rendering login page
 module.exports.login = function(request,response){
+    if(request.isAuthenticated())   //this makes sure that the login page is only visible if the user is not signed in
+    {
+        return response.redirect('/users/profile');
+    }
     return response.render('login',{
         title: "Login Page"
     });
@@ -81,5 +89,10 @@ module.exports.createNewUser = function(request, response){
 
 //getting the details entered in login page or when a user signs in successfully
 module.exports.createSession = function(request, response){
-    
+    return response.redirect('/');
+}
+
+module.exports.destroySession = function(request,response){
+    request.logout();
+    return response.redirect('/users/signout');
 }
