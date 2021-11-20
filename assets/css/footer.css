@@ -1,0 +1,16 @@
+footer {
+  background-color: #008576;
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  color: #d6fefc;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 50px; }
+  footer .footer-links-container {
+    display: flex;
+    flex-direction: column; }
+    footer .footer-links-container div a {
+      color: #d6fefc; }

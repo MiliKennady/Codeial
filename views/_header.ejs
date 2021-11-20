@@ -1,13 +1,23 @@
+<link rel="stylesheet" href="/css/header.css">
 <header>
-    This is the header
-    <% if(locals.user){ %>
-        <ul>
-            <li><a href="/users/signout">Sign Out</a></li>
-        </ul>
-    <%}else{%>
-        <ul>
-            <li><a href="/users/signup">Sign Up</a></li>
-            <li><a href="/users/login">Login</a></li>
-        </ul>
-    <%}%>
+    <div>
+        <h1>codeial</h1>
+    </div>
+    <div class="sign-in-login-links-container">
+        <% if(locals.user){ %>
+            <div class="sign-in-login-links">
+                <a href="/users/signout">Sign Out</a>
+            </div>
+            
+        <%}else{%>
+            <div class="sign-in-login-links" >
+                
+                    <a href="/users/signup">Sign Up</a>
+                    <a href="/users/login">Login</a>
+                
+            </div>
+            
+        <%}%>
+    </div>
+    
 </header>

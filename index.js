@@ -16,6 +16,18 @@ const passportLocal = require('./config/passport-local-strategy');
 
 const MongoStore = require('connect-mongo');  //for mongo store to have a persistent storage for our session cookie
 
+//sass middleware
+const sassMiddleware = require('node-sass-middleware');
+
+//this code needs to be put just before the server starts
+app.use(sassMiddleware({
+    src: './assets/sass',
+    dest:'./assets/css',
+    debug:true,
+    outputStyle:'extended',
+    prefix:'/css'
+}));
+
 //setting up middlewear   also cookie parser requires middle wear since they are sent through request and response variables of the function
 app.use(express.urlencoded({extended:true}));
 

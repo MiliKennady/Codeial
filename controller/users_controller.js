@@ -93,6 +93,9 @@ module.exports.createSession = function(request, response){
 }
 
 module.exports.destroySession = function(request,response){
+    //console.log('Am I here?')
     request.logout();
-    return response.redirect('/users/signout');
+    return response.render('signout',{
+        title: "Signed Out"
+    });
 }
