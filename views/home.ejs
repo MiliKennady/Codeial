@@ -1,4 +1,5 @@
 
+<link rel="stylesheet" href="/css/home.css">
    <h1>Codeial</h1>
 
    <section id="feed-posts">
@@ -6,9 +7,42 @@
          Posts
       </h4>
 
-      <form action="/createPost" id="new-post-form" method="POST">
-         <textarea name="content" id="" cols="30" rows="3" placeholder="Add your Question here...."></textarea>
-         <input type="submit" value="Post">
-      </form>
+      <!--show the form only if user is logged input-->
+      
+      <% if (locals.user) {%>
+
+         <form action="/posts/createPost" id="new-post-form" method="POST">
+            <textarea name="content" id="" cols="30" rows="3" placeholder="Add your Question here...."></textarea>
+            <input type="submit" value="Post">
+         </form>
+
+      <%}%>
+
+      <div class="post-list-container">
+         
+            <% for(post of posts){ %>  <!--itirating through all items of posts-->
+
+               <p>
+                  
+                  <%= post.content%>
+                  <%= post.user.name%>
+                  <%=post.user.email%>
+                  <!--<%=post.user.createdAt%>-->
+
+               </p>
+               <% if (locals.user) {%>
+
+                  <form action="">
+                     <input type="text" placeholder="Leave a comment....">
+                     <input type="submit" name="Comment">
+                  </form>
+
+               <%}%>
+
+            <%}%>
+         
+      </div>
+
    </section>
+   
    

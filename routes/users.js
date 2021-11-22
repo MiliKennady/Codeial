@@ -27,10 +27,12 @@ router.get('/login',signupController.login);
 // ),usersController.createSession);               //if session is 'done' then this controller function is called
 
 router.post('/create',usersController.createNewUser);
+
 router.post('/createSession',passport.authenticate(
     'local',
     {failureRedirect:'/users/login'},
 ),usersController.createSession);
+
 
 router.get('/signout',usersController.destroySession);
 
