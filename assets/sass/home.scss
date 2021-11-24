@@ -1,8 +1,11 @@
-section{
+.main-container{
+    margin-bottom: 60px;
+    section{
 
-    .post-list-container{
-        font-weight: bolder;
-        //margin: 5px;
-        //padding-bottom: 5px;
+        .post-list-container{
+            font-weight: bolder;
+            //margin: 5px;
+            //padding-bottom: 5px;
+        }
     }
 }

@@ -1,7 +1,7 @@
 //module.exports.actionName = function(request,response){};
 
 const Post = require('../models/post');   //requiring the Post Model
-const { user } = require('./users_controller');
+//const { user } = require('./users_controller'); //no idea what tf is this
 
 
 module.exports.home = function(request,response){
@@ -22,14 +22,22 @@ module.exports.home = function(request,response){
 
     // });
 
-    Post.find({}).populate('user').exec(function(err,allPosts){
+    Post.find({})
+    .populate('user') //prepopulating the user details of the post
+    .populate({   //need to get the comments on this post and the user details who commented
+        path : 'comments',
+        populate:{
+            path: 'user'
+        }
+    })  
+    .exec(function(err,allPosts){ //prepopulating the user field of Post with user details
         if(err)
         {
             console.log("error in finding Posts",err); 
             return;
         }
 
-        console.log(allPosts);
+        //console.log(allPosts);
 
         return response.render('home',{
             title:"Codeial | Home",

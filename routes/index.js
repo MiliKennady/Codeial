@@ -29,4 +29,6 @@ router.get('/friends',friendsController.friends);
 
 router.use('/posts', require('./post'));
 
+router.use('/comments', require('./comment'));
+
 module.exports = router; //making this available to be exported

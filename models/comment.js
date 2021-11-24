@@ -20,6 +20,6 @@ const commentSchema = new mongoose.Schema({  //defining the schema
     timestamps:true
 });
 
-const Comment = mongoose.Model('Comment',commentSchema);  //defining the model
+const Comment = mongoose.model('Comment',commentSchema);  //telling mongoose that this model is going to be a collection
 
 module.exports = Comment; //making this model exportable

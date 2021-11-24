@@ -1,2 +1,4 @@
-section .post-list-container {
-  font-weight: bolder; }
+.main-container {
+  margin-bottom: 60px; }
+  .main-container section .post-list-container {
+    font-weight: bolder; }
