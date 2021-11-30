@@ -27,10 +27,11 @@ module.exports.destroy = function (request, response){
     //find if the post exists in the database from the id sent through string parameters
     Post.findById(request.params.id, function(err, post){
 
+        //checking if the current user is authorised to delete the selected post
         if(post.user == request.user.id){ //.id means converting the object id into string since both of them need to be in string format
             post.remove();
 
-            Comment.deleteMany({post: request.params.id}, function(err){
+            Comment.deleteMany({post: request.params.id}, function(err){  //deleting all comments that belongs to the post being deleted
                 return response.redirect('back');
             });
         }

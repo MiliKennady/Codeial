@@ -6,10 +6,10 @@ const passport = require('passport');
 
 
 const usersController = require('../controller/users_controller');
-router.get('/profile',passport.checkAuthentication,usersController.profile);  //making the profile page only when the user is logged in
+router.get('/profile/:id',passport.checkAuthentication,usersController.profile);  //making the profile page only when the user is logged in
 
 const updateProfileController = require('../controller/users_controller');
-router.get('/updateprofile',updateProfileController.updateProfile);
+router.post('/updateprofile/:id',updateProfileController.updateprofile);
 
 const signupController = require('../controller/users_controller');
 router.get('/signup',signupController.signup);

@@ -1,0 +1,13 @@
+<p>
+    <%= comment.content%>
+    <br>
+    <small>
+       <%= comment.user.name %>
+    </small>
+ </p>
+
+ <% if ( locals.user && (locals.user.id == comment.user.id  || locals.user.id == post.user.id )) { %>  <!--comments can be deleted only if either the logged in user created the comment or the logged in user wants to delete any comment created on their own post by other users-->
+    <div class="delete-btn">
+       <a href="/comments/destroy/<%= comment._id%>"><i class="fa fa-solid fa-trash" style="color: #02353c;"></i></a>
+    </div>
+ <% } %>

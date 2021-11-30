@@ -3,6 +3,7 @@
 const Post = require('../models/post');   //requiring the Post Model
 //const { user } = require('./users_controller'); //no idea what tf is this
 
+const User = require('../models/user');
 
 module.exports.home = function(request,response){
     
@@ -37,14 +38,13 @@ module.exports.home = function(request,response){
             return;
         }
 
-        //console.log(allPosts);
-
-        return response.render('home',{
-            title:"Codeial | Home",
-
-            posts: allPosts   //passing all posts retrieved from database
+        User.find({}, function(err, users){
+            return response.render('home',{
+                title:"Codeial | Home",
+                posts: allPosts,   //passing all posts retrieved from database
+                all_users:users
+            });
         });
-
         
     })
 } 

@@ -30,3 +30,45 @@ module.exports.createComment = function(request, response){
         }
     });
 }
+
+//controller to delete a comment under a post
+module.exports.destroyComment = function(request, response){
+
+    //find the comment in the db
+    Comment.findById( request.params.id, function(err, comment){
+        if(err){ return console.log('Error over here',err);}
+        let postId = comment.post;
+        if(comment.user == request.user.id ){ //checking if the person trying to delete is the one who is logged in
+
+            //first fetching post id of this comment, so that we can delete the comment from the post models comment array
+            
+
+            comment.remove();
+
+            Post.findByIdAndUpdate(postId, { $pull: {comments : request.params.id}}, function(err, post){
+                return response.redirect('back');
+            }); //find the post by 'postId', pull of the comment from the array
+        }
+        else{    //if the post owner wants to remove an inappropriate comment on their post made by another user
+            Post.findById(postId, function(err, post){
+                var postUser = post.user;
+
+                if(postUser == request.user.id){
+
+                    comment.remove();
+                    Post.findByIdAndUpdate(postId, { $pull: {comments : request.params.id}}, function(err, post){
+                    return response.redirect('back');
+                    }); 
+
+                }
+                else{
+                    return response.redirect('back');
+                }
+            });
+            //console.log('Am i here??? dylan');
+            
+        }
+
+    });
+
+}

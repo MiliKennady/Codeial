@@ -12,17 +12,26 @@ module.exports.user = function(request,response){
 
 //rendering profile page
 module.exports.profile = function(request, response){
-    return response.render('profile',{
-        title: "Profile"
+    User.findById(request.params.id, function(err, user){
+        return response.render('profile',{
+            title: "User Profile",
+            profile_user:user
+        });
     });
+    
 }
 
 ////rendering update profile page
-module.exports.updateProfile = function(request,response){
+module.exports.updateprofile = function(request,response){
     
-    return response.render('updateProfile',{
-        title: "Update your Profile"
-    });
+    //check if update request is from the logged in user
+    if(request.user.id == request.params.id){
+        User.findByIdAndUpdate(request.params.id, request.body, function(err, user){
+            return response.redirect('back');
+        });
+    }else{
+        response.status(401).send('Unauthorized');
+    }
 
 }
 
